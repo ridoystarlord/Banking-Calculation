@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1 class="text-5xl text-center mt-16">Welcome to My Bank</h1>
+    </header>
+    <main>
+      <section class="bg-green-100 w-3/4 mx-auto mt-8 p-8">
+        <h3 class="text-3xl mb-4">Plz, Login</h3>
+        <div>
+          <input
+            class="border border-gray-400 rounded block w-3/4 mb-4 p-2"
+            type="email"
+            name=""
+            id="userEmail"
+            placeholder="Enter Your Email"
+          />
+          <input
+            class="border border-gray-400 rounded block w-3/4 mb-4 p-2"
+            type="password"
+            name=""
+            id="userPassword"
+            placeholder="Enter Your Password"
+          />
+          <button id="login-btn" class="bg-yellow-600 p-2 rounded text-white">
+            Submit
+          </button>
+        </div>
+      </section>
+    </main>
+    <script>
+      const login = document.getElementById("login-btn");
+      login.addEventListener("click", function () {
+        const email = document.getElementById("userEmail").value;
+        const password = document.getElementById("userPassword").value;
+        if (email == "a" && password == "s") {
+          window.location.href = "calculation.html";
+        } else {
+          console.log("Invalid");
+        }
+      });
+    </script>
+  </body>
+</html>

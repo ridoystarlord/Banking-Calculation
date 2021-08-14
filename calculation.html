@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1 class="text-5xl text-center mt-16">Dashboard</h1>
+    </header>
+    <main class="w-3/4 mx-auto">
+      <section class="mt-8 text-white">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-blue-400 rounded p-8">
+            <h3 class="text-2xl">Deposit</h3>
+            <h4 class="text-4xl">
+              <span>$ </span><span id="total-deposit-amount">0.0</span>
+            </h4>
+          </div>
+          <div class="bg-green-400 rounded p-8">
+            <h3 class="text-2xl">Withdraw</h3>
+            <h4 class="text-4xl">
+              <span>$ </span><span id="total-withdraw-amount">0.0</span>
+            </h4>
+          </div>
+          <div class="bg-red-400 rounded p-8">
+            <h3 class="text-2xl">Balance</h3>
+            <h4 class="text-4xl">
+              <span>$ </span><span id="total-balance-amount">1200.0</span>
+            </h4>
+          </div>
+        </div>
+      </section>
+      <section class="mt-16">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-red-100 p-4 rounded">
+            <h3 class="text-2xl mb-4">Deposit</h3>
+            <div>
+              <div>
+                <input
+                  class="border border-gray-400 rounded block w-3/4 mb-4 p-2"
+                  type="number"
+                  name=""
+                  id="deposit"
+                  placeholder="Enter Deposit Amount"
+                />
+                <button
+                  id="deposit-btn"
+                  class="bg-yellow-600 p-2 rounded text-white"
+                >
+                  Deposit
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="bg-green-100 p-4 rounded">
+            <h3 class="text-2xl mb-4">Withdraw</h3>
+            <div>
+              <div>
+                <input
+                  class="border border-gray-400 rounded block w-3/4 mb-4 p-2"
+                  type="number"
+                  name=""
+                  id="withdraw"
+                  placeholder="Enter Withdraw Amount"
+                />
+                <button
+                  id="withdraw-btn"
+                  class="bg-yellow-600 p-2 rounded text-white"
+                >
+                  Withdraw
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      document
+        .getElementById("deposit-btn")
+        .addEventListener("click", function () {
+          let deposit_amount = document.getElementById("deposit").value;
+          let previous_amount = document.getElementById(
+            "total-deposit-amount"
+          ).innerText;
+          if (deposit_amount.length == 0) {
+            alert("Please, Enter Deposit Amount");
+            document.getElementById("deposit").value = "";
+            return;
+          }
+          if (deposit_amount < 0) {
+            alert("Invalid Deposit Amount");
+            document.getElementById("deposit").value = "";
+            return;
+          }
+
+          const updated_deposit_amount =
+            parseFloat(deposit_amount) + parseFloat(previous_amount);
+          document.getElementById("total-deposit-amount").innerText =
+            updated_deposit_amount.toFixed(2);
+          let previous_bank_balance = document.getElementById(
+            "total-balance-amount"
+          ).innerText;
+          const updated_balance_amount =
+            parseFloat(deposit_amount) + parseFloat(previous_bank_balance);
+          document.getElementById("total-balance-amount").innerText =
+            updated_balance_amount.toFixed(2);
+          document.getElementById("deposit").value = "";
+        });
+      document
+        .getElementById("withdraw-btn")
+        .addEventListener("click", function () {
+          let withdraw_amount = document.getElementById("withdraw").value;
+          let previous_amount = document.getElementById(
+            "total-withdraw-amount"
+          ).innerText;
+          let previous_bank_balance = document.getElementById(
+            "total-balance-amount"
+          ).innerText;
+          if (withdraw_amount.length == 0) {
+            alert("Please, Enter Withdraw Amount");
+            document.getElementById("deposit").value = "";
+            return;
+          }
+
+          if (parseFloat(withdraw_amount) > parseFloat(previous_bank_balance)) {
+            alert("You Dont have this much Balance");
+            document.getElementById("withdraw").value = "";
+            return;
+          }
+
+          const updated_withdraw_amount =
+            parseFloat(withdraw_amount) + parseFloat(previous_amount);
+          document.getElementById("total-withdraw-amount").innerText =
+            updated_withdraw_amount.toFixed(2);
+
+          const updated_balance_amount =
+            parseFloat(previous_bank_balance) - parseFloat(withdraw_amount);
+          document.getElementById("total-balance-amount").innerText =
+            updated_balance_amount.toFixed(2);
+          document.getElementById("withdraw").value = "";
+        });
+    </script>
+  </body>
+</html>
